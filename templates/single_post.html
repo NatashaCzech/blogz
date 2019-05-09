@@ -2,10 +2,12 @@
 
 {% block content %}
 
-    <h1>{{ single_post.title }}</h1>
+    <h1>Your Blog</h1>
 
-
-    <p>{{ single_post.post }}</p>
+    <div>
+        <h2>{{single_post.title}}</h2>
+        <p>{{ single_post.post }}</p>
+    </div>
     
 
 {% endblock %}

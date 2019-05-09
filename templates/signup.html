@@ -1,0 +1,50 @@
+
+{% extends 'base.html' %}
+
+{% block content %}
+
+    <h1>Sign Up As a Creator</h1>
+
+<form action="/signup" method='POST' class="form-horizontal">
+
+  <p class="flash">
+        
+      {% with messages = get_flashed_messages(with_categories=True) %}
+          <ul>
+          {% for category,message in messages %}
+              <li class="{{category}}">{{message}}</li>
+          {% endfor %}
+          </ul>
+      {% endwith %}
+
+      </p>
+
+    <fieldset>
+      
+      <div class="form-group">
+        <label for="username" class="col-lg-2 control-label">Username</label>
+        <div class="col-lg-10">
+          <input type="text" class="form-control" id="username" name="username" placeholder="Username">
+        </div>
+      <div class="form-group">
+        <label for="inputPassword" class="col-lg-2 control-label">Password</label>
+        <div class="col-lg-10">
+          <input type="password" class="form-control" id="inputPassword" name="password" placeholder="Password">
+        </div>
+      <div class="form-group">
+        <label for="Verify-password" class="col-lg-2 control-label">Verify Your Password</label>
+        <div class="col-lg-10">
+          <input type="password" class="form-control" id="verified_password" name="verified_password" placeholder="Re-enter Password">
+        </div>
+          <span class="help-block">Please enter your Username and Password to login.</span>
+        </div>
+      </div>
+      <div class="form-group">
+        <div class="col-lg-10 col-lg-offset-2">
+          <button type="submit" class="btn btn-primary">Submit</button>
+        </div>
+      </div>
+    </fieldset>
+  </form>
+
+  {% endblock %} 
