@@ -47,24 +47,33 @@ def index():
     all_users = User.query.distinct()
     return render_template('index.html', list_all_users=all_users)
 
-#display single entry or all entries 
+
 @app.route('/blog')
 def display_blog():
     post_id = request.args.get('id')
     user_id = request.args.get('owner_id')
     if (post_id):
-        single_post = Blog.query.get(post_id)
+        single_post = Blog.query.filter_by(id=post_id).first()
         return render_template('single_post.html', single_post=single_post)
     else:
         if (user_id):
-            user_posts = Blog.query.filter_by(owner_id = user_id)
+            user_posts = Blog.query.filter_by(owner_id=user_id).all()
             return render_template ('singleuser.html', posts = user_posts)
 
         else:
             all_blog_entries = Blog.query.all()  
             return render_template ('blog.html', posts= all_blog_entries)
 
+@app.route('/single_post')
+def single_post():
+    post_id = request.args.get('id')
+    single_post = Blog.query.get('post_id')
+    if (post_id):
+        return render_template('single_post.html', single_post=single_post)
+
+
 def empty_entry(x):
+
     if x:
         return True
     else:
@@ -80,13 +89,17 @@ def add_new_post():
         blog_title = request.form['blog_title']
         post_entry = request.form['post_entry']
         new_post = Blog(blog_title, post_entry, owner)
+
         
     
-        if empty_entry (blog_title) and empty_entry (post_entry):
+        if empty_entry(blog_title) and empty_entry(post_entry):
             db.session.add(new_post)
             db.session.commit()
-            post_link ="/blog?id=" + str(new_post.id)
-            return redirect('/newpost')
+            routing ='/blog?id=' + str(new_post.id) 
+            #post_link ="/blog?id=" + str(new_post.id)
+            #return redirect('/single_post')
+            #return redirect('/one_blog')
+            return redirect(routing)
 
         else:
             if not empty_entry (blog_title) and not empty_entry (post_entry):

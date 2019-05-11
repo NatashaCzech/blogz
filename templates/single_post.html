@@ -6,7 +6,8 @@
 
     <div>
         <h2>{{single_post.title}}</h2>
-        <p>{{ single_post.post }}</p>
+        <p>{{single_post.post}}</p>
+        <p class="byline">Created by <a href="./blog?owner_id={{single_post.owner_id}}">{{single_post.owner.username}}</a></p>
     </div>
     
 
